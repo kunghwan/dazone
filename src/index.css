@@ -24,15 +24,30 @@
   --color-theme: var(--color-red-500);
   --color-bg: var(--bg--gray-50);
 }
+@layer utilities {
+  .input-my {
+    @apply px-2.5;
+  }
+  .l-msg {
+    @apply text-red-500;
+  }
+}
 
 @layer components {
   .input {
     @apply px-1.5 dark:bg-gray-800 dark:text-gray-300;
   }
-}
+  .div {
+    @apply flex gap-2.5;
+  }
 
-@layer utilities {
-  .input-my {
-    @apply px-2.5;
+  .div.col {
+    @apply flex-col;
+  }
+  .i-wrap {
+    @apply gap-y-1;
+  }
+  .label {
+    @apply text-gray-500 text-xs;
   }
 }

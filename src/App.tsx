@@ -1,18 +1,15 @@
-import { TextInput } from "./ui";
-import { useState } from "react";
+import { Container, TextInput } from "./ui";
 
 const App = () => {
-  const [isDarkMode, setIsDarkMode] = useState(false);
   return (
     <div>
-      <h1>App</h1>
-      <TextInput.Input />
-      <select name="" id="">
-        <option>선택</option>
-      </select>
-      <button onClick={() => document.body.classList.toggle("dark")}>
-        {isDarkMode ? "DarkMode" : "lightMode"}
-      </button>
+      <Container.InputWrapper id="text" title="text" message={"sdfdsfsdfdsf"}>
+        <TextInput.Input />
+      </Container.InputWrapper>
+      <Container.Row>
+        <p>23123</p>
+        <p>123123</p>
+      </Container.Row>
     </div>
   );
 };
