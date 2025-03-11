@@ -1,20 +1,20 @@
 import React from "react";
 import { twMerge } from "tailwind-merge";
 
-export type InputType = React.DetailedHTMLProps<
+export type Props = React.DetailedHTMLProps<
   React.InputHTMLAttributes<HTMLInputElement>,
   HTMLInputElement
 >;
 
-export const Input = (props: InputType) => {
+export const Input = (props: Props) => {
   return <input {...props} className={twMerge("input", props?.className)} />;
 };
 
-export type LabelProps = React.DetailedHTMLProps<
+export type LableProps = React.DetailedHTMLProps<
   React.LabelHTMLAttributes<HTMLLabelElement>,
   HTMLLabelElement
 >;
 
-export const Label = (props: LabelProps) => (
+export const Label = (props: LableProps) => (
   <label {...props} className={twMerge("label", props?.className)} />
 );

@@ -1,3 +1,4 @@
+import React from "react";
 import { twMerge } from "tailwind-merge";
 import { TextInput } from ".";
 
@@ -7,10 +8,11 @@ export type DivProps = React.DetailedHTMLProps<
 >;
 
 export const Col = (props: DivProps) => {
-  return <div {...props} className={twMerge("divcol", props?.className)}></div>;
+  return <div {...props} className={twMerge("div col", props?.className)} />;
 };
+
 export const Row = (props: DivProps) => {
-  return <div {...props} className={twMerge("div", props?.className)}></div>;
+  return <div {...props} className={twMerge("div", props?.className)} />;
 };
 
 export interface InputWrapperProps {
@@ -19,7 +21,6 @@ export interface InputWrapperProps {
   children: React.ReactNode;
   message?: string | null;
 }
-
 export const InputWrapper = ({
   children,
   id,
@@ -30,7 +31,11 @@ export const InputWrapper = ({
     <Col className="i-wrap">
       <TextInput.Label htmlFor={id}>{title}</TextInput.Label>
       {children}
-      {message && <TextInput />}
+      {message && (
+        <TextInput.Label className="l-msg" htmlFor={id}>
+          {message}
+        </TextInput.Label>
+      )}
     </Col>
   );
 };
