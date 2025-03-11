@@ -48,4 +48,48 @@
 
 7. 주문 상세 내역 페이지
 
-- 구맨한 물건 목록, 가격, 수량, 제품 정보
+- 구매한 물건 목록, 가격, 수량, 제품 정보
+
+### 설치 라이브러리
+
+1. rrd
+2. zustand
+3. tailwind
+4. react-icons
+5. vanilla extract
+6. firebase + react-query
+
+### tailwind
+
+1. custom components + theme + utilities
+
+2. dark mode 구현
+
+### Zustand
+
+장바구니, 결재내역, 주문내역, 페이지 전환시에도 페이지 내용 저장
+
+### firebase => 실시간 데이터 fetching => listener : subscribe 리액트 스럽지 못함
+
+react query => 데이터를 저장해놓고 변경사항 없으면 그대로 갖다씀
+
+인증관련 관리
+
+회원가입 + 로그인 유지 + 구글 로그인
+
+### React
+
+useCallback, useState, useEffect, useMemo, useRef,
+
+전역상태
+Context Api: useContext, createContext
+
+++++
+Suspense, lazy loading 로딩 지연을 처리하는 과정
+
+useTransition 로딩시간을 관리하는 훅
+
+useReducer state 관리하는 좋은 친구
+redux 규칙을 따름
+
+### typescript
