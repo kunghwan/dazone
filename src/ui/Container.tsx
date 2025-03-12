@@ -18,7 +18,7 @@ export const Row = (props: DivProps) => {
 export interface InputWrapperProps {
   id: string;
   title: string;
-  children: React.ReactNode;
+  children?: React.ReactNode;
   message?: string | null;
 }
 export const InputWrapper = ({
