@@ -13,8 +13,8 @@ const RootLayout = () => {
 
   return (
     <>
-      <header className="border-border bg-white dark:bg-darkBg dark:border-b-darkBorder">
-        <div className=" flex gap-x-2.5 max-w-300 mx-auto">
+      <header className="border-b border-b-border dark:bg-darkBg header dark:border-b-darkBorder">
+        <div className=" flex gap-x-2.5 max-w-300 mx-auto p-2.5">
           <img alt="logo" className=" h-10 w-25 bg-gray-50" />
           <form
             className=" flex flex-1 gap-x-2.5"
