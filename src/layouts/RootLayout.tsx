@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Outlet } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 import RouteNavbar from "./RouteNavbar";
 
 import { IoMenu, IoSearch, IoSunny, IoMoon } from "react-icons/io5";
@@ -15,7 +15,9 @@ const RootLayout = () => {
     <>
       <header className="border-b border-b-border dark:bg-darkBg header dark:border-b-darkBorder">
         <div className=" flex gap-x-2.5 max-w-300 mx-auto p-2.5">
-          <img alt="logo" className=" h-10 w-25 bg-gray-50" />
+          <Link to="/" className="hover:shadow-none">
+            <img alt="logo" className=" h-10 w-25 bg-gray-50" />
+          </Link>
           <form
             className=" flex flex-1 gap-x-2.5"
             onSubmit={(e) => e.preventDefault()}

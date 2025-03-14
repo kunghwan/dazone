@@ -7,14 +7,14 @@ const Cart = () => {
 
   return (
     <div className="border border-red-800 rounded p-5">
-      <div>
+      {/* <div>
         {carts.map((ca) => {
           return <CartItem key={ca.name} {...ca} />;
         })}
-      </div>
-      <div>
+      </div> */}
+      {/* <div>
         <CartSlider />
-      </div>
+      </div> */}
     </div>
   );
 };

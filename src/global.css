@@ -13,6 +13,7 @@
   --color-border: var(--color-gray-700);
   --color-darkBorder: var(--color-zinc-700);
   --color-darkBg: #000000;
+  --aspect-img: 16 / 9;
 }
 
 @layer base {

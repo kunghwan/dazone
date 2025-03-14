@@ -1,17 +1,21 @@
 import { create } from "zustand";
 
+// 각 제품의 데이터 구조를 정의하는 인터페이스
 export interface ProductProps {
-  imgs: string[];
-  name: string;
-  price: string;
-  quan: number;
-  id: string;
+  imgs: string[]; // 제품 이미지 URL 배열
+  name: string; // 제품 이름
+  price: string; // 제품 가격
+  quan: number; // 재고 수량
+  id: string; // 제품 고유 ID
+  desc: string; // 제품 설명
 }
 
+// zustand 상태 관리 스토어 인터페이스
 export interface Props {
-  products: ProductProps[];
+  products: ProductProps[]; // 여러 개의 제품 데이터 배열
 }
 
+// zustand 스토어 생성
 export const store = create<Props>(() => ({
   products: [
     {
@@ -25,6 +29,10 @@ export const store = create<Props>(() => ({
       price: "329800",
       quan: 45,
       id: "111",
+      desc: `의자 is Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            Excepturi officiis commodi harum corrupti! Cupiditate, veritatis!
+            Officiis, minus dolor delectus necessitatibus voluptas cumque
+            dignissimos mollitia aspernatur minima voluptatem sapiente explicabo`,
     },
     {
       imgs: [
@@ -37,6 +45,10 @@ export const store = create<Props>(() => ({
       price: "1129800",
       quan: 14,
       id: "2222",
+      desc: `인체공학적 디자인으로 설계된 과학 그자체 is Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            Excepturi officiis commodi harum corrupti! Cupiditate, veritatis!
+            Officiis, minus dolor delectus necessitatibus voluptas cumque
+            dignissimos mollitia aspernatur minima voluptatem sapiente explicabo`,
     },
     {
       imgs: [
@@ -49,23 +61,31 @@ export const store = create<Props>(() => ({
       price: "79800",
       quan: 23,
       id: "33333",
+      desc: `무드등 is Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            Excepturi officiis commodi harum corrupti! Cupiditate, veritatis!
+            Officiis, minus dolor delectus necessitatibus voluptas cumque
+            dignissimos mollitia aspernatur minima voluptatem sapiente explicabo`,
     },
     {
       imgs: [
-        "https://pixabay.com/ko/photos/%EC%BB%A4%ED%94%BC-%EC%BD%A9-%EC%B9%B4%ED%8E%98-7066308/",
-        "https://pixabay.com/ko/photos/%EC%BB%A4%ED%94%BC-%EC%BB%A4%ED%94%BC-%EC%BD%A9-%EB%B0%A9%ED%96%A5-%EA%B5%AC%EC%9A%B4-%EA%B2%83-4591159/",
-        "https://pixabay.com/ko/photos/%EC%BB%A4%ED%94%BC-%EC%BD%A9-%EC%BB%A4%ED%94%BC-%EB%B3%B6%EC%9D%80-%EC%BB%A4%ED%94%BC-%EC%BD%A9-6603499/",
-        "https://pixabay.com/ko/photos/%EC%BB%A4%ED%94%BC-%EC%BD%A9-%EC%B9%B4%ED%8E%98%EC%9D%B8-%EA%B5%AC%EC%9A%B4-%EA%B2%83-8406187/",
+        "https://cdn.pixabay.com/photo/2013/08/11/19/46/coffee-171653_1280.jpg",
+        "https://cdn.pixabay.com/photo/2022/04/11/16/29/coffee-beans-7126154_1280.jpg",
+        "https://cdn.pixabay.com/photo/2016/08/07/16/28/coffee-1576552_1280.jpg",
+        "https://cdn.pixabay.com/photo/2012/02/23/09/16/coffee-15994_1280.jpg",
       ],
       name: "커피",
       price: "3000",
       quan: 1,
       id: "4444",
+      desc: `커피 is Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            Excepturi officiis commodi harum corrupti! Cupiditate, veritatis!
+            Officiis, minus dolor delectus necessitatibus voluptas cumque
+            dignissimos mollitia aspernatur minima voluptatem sapiente explicabo`,
     },
     {
       imgs: [
         "https://cdn.pixabay.com/photo/2021/09/11/10/42/camping-6615226_640.jpg",
-        "https://pixabay.com/ko/photos/%EB%9D%BC%EB%A9%B4-%EA%B5%AD%EC%88%98-%EC%A0%91%EC%8B%9C-%EC%9D%8C%EC%8B%9D-5579023/",
+        "https://cdn.pixabay.com/photo/2022/05/10/18/50/ramen-7187809_1280.jpg",
         "https://cdn.pixabay.com/photo/2021/11/18/11/43/noodles-6806153_640.jpg",
         "https://cdn.pixabay.com/photo/2016/02/20/09/04/food-1211752_640.jpg",
       ],
@@ -73,6 +93,10 @@ export const store = create<Props>(() => ({
       price: "1000",
       quan: 5,
       id: "5555",
+      desc: `라면 is Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            Excepturi officiis commodi harum corrupti! Cupiditate, veritatis!
+            Officiis, minus dolor delectus necessitatibus voluptas cumque
+            dignissimos mollitia aspernatur minima voluptatem sapiente explicabo`,
     },
     {
       imgs: [
@@ -85,6 +109,10 @@ export const store = create<Props>(() => ({
       price: "20000",
       quan: 34,
       id: "asdfkasdfasdf78900",
+      desc: `의류 is Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            Excepturi officiis commodi harum corrupti! Cupiditate, veritatis!
+            Officiis, minus dolor delectus necessitatibus voluptas cumque
+            dignissimos mollitia aspernatur minima voluptatem sapiente explicabo`,
     },
     {
       imgs: [
@@ -97,6 +125,10 @@ export const store = create<Props>(() => ({
       price: "10000",
       quan: 64,
       id: "asdkfasdf0",
+      desc: `목도리 is Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            Excepturi officiis commodi harum corrupti! Cupiditate, veritatis!
+            Officiis, minus dolor delectus necessitatibus voluptas cumque
+            dignissimos mollitia aspernatur minima voluptatem sapiente explicabo`,
     },
     {
       imgs: [
@@ -106,6 +138,10 @@ export const store = create<Props>(() => ({
       price: "10000",
       quan: 1,
       id: "66666",
+      desc: `연필1 is Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            Excepturi officiis commodi harum corrupti! Cupiditate, veritatis!
+            Officiis, minus dolor delectus necessitatibus voluptas cumque
+            dignissimos mollitia aspernatur minima voluptatem sapiente explicabo`,
     },
     {
       imgs: [
@@ -115,6 +151,10 @@ export const store = create<Props>(() => ({
       price: "20000",
       quan: 2,
       id: "asdfasdf0123",
+      desc: `연필2 is Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            Excepturi officiis commodi harum corrupti! Cupiditate, veritatis!
+            Officiis, minus dolor delectus necessitatibus voluptas cumque
+            dignissimos mollitia aspernatur minima voluptatem sapiente explicabo`,
     },
     {
       imgs: [
@@ -124,6 +164,10 @@ export const store = create<Props>(() => ({
       price: "30000",
       quan: 3,
       id: "77777",
+      desc: `연필3 is Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            Excepturi officiis commodi harum corrupti! Cupiditate, veritatis!
+            Officiis, minus dolor delectus necessitatibus voluptas cumque
+            dignissimos mollitia aspernatur minima voluptatem sapiente explicabo`,
     },
     {
       imgs: [
@@ -133,15 +177,23 @@ export const store = create<Props>(() => ({
       price: "40000",
       quan: 4,
       id: "8888",
+      desc: `연필4 is Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            Excepturi officiis commodi harum corrupti! Cupiditate, veritatis!
+            Officiis, minus dolor delectus necessitatibus voluptas cumque
+            dignissimos mollitia aspernatur minima voluptatem sapiente explicabo`,
     },
     {
       imgs: [
         "https://cdn.pixabay.com/photo/2023/07/19/04/56/european-shorthair-8136065_1280.jpg",
       ],
-      name: "고양이",
+      name: "연필4",
       price: "200000",
       quan: 72,
       id: "9999",
+      desc: `연필4 is Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            Excepturi officiis commodi harum corrupti! Cupiditate, veritatis!
+            Officiis, minus dolor delectus necessitatibus voluptas cumque
+            dignissimos mollitia aspernatur minima voluptatem sapiente explicabo`,
     },
     {
       imgs: [
@@ -151,6 +203,10 @@ export const store = create<Props>(() => ({
       price: "9000000",
       quan: 3,
       id: "123123124",
+      desc: `호랑이 is Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            Excepturi officiis commodi harum corrupti! Cupiditate, veritatis!
+            Officiis, minus dolor delectus necessitatibus voluptas cumque
+            dignissimos mollitia aspernatur minima voluptatem sapiente explicabo`,
     },
     {
       imgs: [
@@ -160,6 +216,10 @@ export const store = create<Props>(() => ({
       price: "500000",
       quan: 60,
       id: "2351234912",
+      desc: `호랑이 is Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            Excepturi officiis commodi harum corrupti! Cupiditate, veritatis!
+            Officiis, minus dolor delectus necessitatibus voluptas cumque
+            dignissimos mollitia aspernatur minima voluptatem sapiente explicabo`,
     },
     {
       imgs: [
@@ -169,6 +229,10 @@ export const store = create<Props>(() => ({
       price: "5000000",
       quan: 8,
       id: "888889887900",
+      desc: `판다 is Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            Excepturi officiis commodi harum corrupti! Cupiditate, veritatis!
+            Officiis, minus dolor delectus necessitatibus voluptas cumque
+            dignissimos mollitia aspernatur minima voluptatem sapiente explicabo`,
     },
   ],
 }));
