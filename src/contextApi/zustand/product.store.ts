@@ -1,21 +1,9 @@
 import { create } from "zustand";
 
-// 각 제품의 데이터 구조를 정의하는 인터페이스
-export interface ProductProps {
-  imgs: string[]; // 제품 이미지 URL 배열
-  name: string; // 제품 이름
-  price: string; // 제품 가격
-  quan: number; // 재고 수량
-  id: string; // 제품 고유 ID
-  desc: string; // 제품 설명
-}
-
-// zustand 상태 관리 스토어 인터페이스
 export interface Props {
-  products: ProductProps[]; // 여러 개의 제품 데이터 배열
+  products: ProductProps[];
 }
 
-// zustand 스토어 생성
 export const store = create<Props>(() => ({
   products: [
     {
@@ -32,7 +20,8 @@ export const store = create<Props>(() => ({
       desc: `의자 is Lorem ipsum dolor sit amet consectetur adipisicing elit.
             Excepturi officiis commodi harum corrupti! Cupiditate, veritatis!
             Officiis, minus dolor delectus necessitatibus voluptas cumque
-            dignissimos mollitia aspernatur minima voluptatem sapiente explicabo`,
+            dignissimos mollitia aspernatur minima voluptatem sapiente explicabo
+`,
     },
     {
       imgs: [
@@ -48,7 +37,8 @@ export const store = create<Props>(() => ({
       desc: `인체공학적 디자인으로 설계된 과학 그자체 is Lorem ipsum dolor sit amet consectetur adipisicing elit.
             Excepturi officiis commodi harum corrupti! Cupiditate, veritatis!
             Officiis, minus dolor delectus necessitatibus voluptas cumque
-            dignissimos mollitia aspernatur minima voluptatem sapiente explicabo`,
+            dignissimos mollitia aspernatur minima voluptatem sapiente explicabo
+            natus`,
     },
     {
       imgs: [
@@ -64,7 +54,8 @@ export const store = create<Props>(() => ({
       desc: `무드등 is Lorem ipsum dolor sit amet consectetur adipisicing elit.
             Excepturi officiis commodi harum corrupti! Cupiditate, veritatis!
             Officiis, minus dolor delectus necessitatibus voluptas cumque
-            dignissimos mollitia aspernatur minima voluptatem sapiente explicabo`,
+            dignissimos mollitia aspernatur minima voluptatem sapiente explicabo
+            natus`,
     },
     {
       imgs: [
@@ -80,7 +71,8 @@ export const store = create<Props>(() => ({
       desc: `커피 is Lorem ipsum dolor sit amet consectetur adipisicing elit.
             Excepturi officiis commodi harum corrupti! Cupiditate, veritatis!
             Officiis, minus dolor delectus necessitatibus voluptas cumque
-            dignissimos mollitia aspernatur minima voluptatem sapiente explicabo`,
+            dignissimos mollitia aspernatur minima voluptatem sapiente explicabo
+            natus`,
     },
     {
       imgs: [
@@ -96,7 +88,8 @@ export const store = create<Props>(() => ({
       desc: `라면 is Lorem ipsum dolor sit amet consectetur adipisicing elit.
             Excepturi officiis commodi harum corrupti! Cupiditate, veritatis!
             Officiis, minus dolor delectus necessitatibus voluptas cumque
-            dignissimos mollitia aspernatur minima voluptatem sapiente explicabo`,
+            dignissimos mollitia aspernatur minima voluptatem sapiente explicabo
+            natus`,
     },
     {
       imgs: [
@@ -112,7 +105,8 @@ export const store = create<Props>(() => ({
       desc: `의류 is Lorem ipsum dolor sit amet consectetur adipisicing elit.
             Excepturi officiis commodi harum corrupti! Cupiditate, veritatis!
             Officiis, minus dolor delectus necessitatibus voluptas cumque
-            dignissimos mollitia aspernatur minima voluptatem sapiente explicabo`,
+            dignissimos mollitia aspernatur minima voluptatem sapiente explicabo
+            natus`,
     },
     {
       imgs: [
@@ -128,7 +122,8 @@ export const store = create<Props>(() => ({
       desc: `목도리 is Lorem ipsum dolor sit amet consectetur adipisicing elit.
             Excepturi officiis commodi harum corrupti! Cupiditate, veritatis!
             Officiis, minus dolor delectus necessitatibus voluptas cumque
-            dignissimos mollitia aspernatur minima voluptatem sapiente explicabo`,
+            dignissimos mollitia aspernatur minima voluptatem sapiente explicabo
+            natus`,
     },
     {
       imgs: [
@@ -141,7 +136,8 @@ export const store = create<Props>(() => ({
       desc: `연필1 is Lorem ipsum dolor sit amet consectetur adipisicing elit.
             Excepturi officiis commodi harum corrupti! Cupiditate, veritatis!
             Officiis, minus dolor delectus necessitatibus voluptas cumque
-            dignissimos mollitia aspernatur minima voluptatem sapiente explicabo`,
+            dignissimos mollitia aspernatur minima voluptatem sapiente explicabo
+            natus`,
     },
     {
       imgs: [
@@ -154,7 +150,8 @@ export const store = create<Props>(() => ({
       desc: `연필2 is Lorem ipsum dolor sit amet consectetur adipisicing elit.
             Excepturi officiis commodi harum corrupti! Cupiditate, veritatis!
             Officiis, minus dolor delectus necessitatibus voluptas cumque
-            dignissimos mollitia aspernatur minima voluptatem sapiente explicabo`,
+            dignissimos mollitia aspernatur minima voluptatem sapiente explicabo
+            natus`,
     },
     {
       imgs: [
@@ -167,7 +164,8 @@ export const store = create<Props>(() => ({
       desc: `연필3 is Lorem ipsum dolor sit amet consectetur adipisicing elit.
             Excepturi officiis commodi harum corrupti! Cupiditate, veritatis!
             Officiis, minus dolor delectus necessitatibus voluptas cumque
-            dignissimos mollitia aspernatur minima voluptatem sapiente explicabo`,
+            dignissimos mollitia aspernatur minima voluptatem sapiente explicabo
+            natus`,
     },
     {
       imgs: [
@@ -180,7 +178,8 @@ export const store = create<Props>(() => ({
       desc: `연필4 is Lorem ipsum dolor sit amet consectetur adipisicing elit.
             Excepturi officiis commodi harum corrupti! Cupiditate, veritatis!
             Officiis, minus dolor delectus necessitatibus voluptas cumque
-            dignissimos mollitia aspernatur minima voluptatem sapiente explicabo`,
+            dignissimos mollitia aspernatur minima voluptatem sapiente explicabo
+            natus`,
     },
     {
       imgs: [
@@ -193,7 +192,8 @@ export const store = create<Props>(() => ({
       desc: `연필4 is Lorem ipsum dolor sit amet consectetur adipisicing elit.
             Excepturi officiis commodi harum corrupti! Cupiditate, veritatis!
             Officiis, minus dolor delectus necessitatibus voluptas cumque
-            dignissimos mollitia aspernatur minima voluptatem sapiente explicabo`,
+            dignissimos mollitia aspernatur minima voluptatem sapiente explicabo
+            natus`,
     },
     {
       imgs: [
@@ -206,7 +206,8 @@ export const store = create<Props>(() => ({
       desc: `호랑이 is Lorem ipsum dolor sit amet consectetur adipisicing elit.
             Excepturi officiis commodi harum corrupti! Cupiditate, veritatis!
             Officiis, minus dolor delectus necessitatibus voluptas cumque
-            dignissimos mollitia aspernatur minima voluptatem sapiente explicabo`,
+            dignissimos mollitia aspernatur minima voluptatem sapiente explicabo
+            natus`,
     },
     {
       imgs: [
@@ -219,7 +220,8 @@ export const store = create<Props>(() => ({
       desc: `호랑이 is Lorem ipsum dolor sit amet consectetur adipisicing elit.
             Excepturi officiis commodi harum corrupti! Cupiditate, veritatis!
             Officiis, minus dolor delectus necessitatibus voluptas cumque
-            dignissimos mollitia aspernatur minima voluptatem sapiente explicabo`,
+            dignissimos mollitia aspernatur minima voluptatem sapiente explicabo
+            natus`,
     },
     {
       imgs: [
@@ -232,7 +234,8 @@ export const store = create<Props>(() => ({
       desc: `판다 is Lorem ipsum dolor sit amet consectetur adipisicing elit.
             Excepturi officiis commodi harum corrupti! Cupiditate, veritatis!
             Officiis, minus dolor delectus necessitatibus voluptas cumque
-            dignissimos mollitia aspernatur minima voluptatem sapiente explicabo`,
+            dignissimos mollitia aspernatur minima voluptatem sapiente explicabo
+            natus`,
     },
   ],
 }));

@@ -1,67 +1,63 @@
-import { useEffect, useState,useCallback } from "react";
 import { useParams } from "react-router-dom";
 import { PRODUCT } from "../contextApi";
+import { useEffect, useState, useCallback } from "react";
+import pricfy from "../utils/pricfy";
 import Loading from "../shared/Loading";
 
 const ProductDetail = () => {
-  const { pid } = useParams<{ pid?: string }>();
+  const { pid } = useParams<{ pid: string }>();
   const { products } = PRODUCT.store();
 
   const [isPending, setIsPending] = useState(true);
   const [product, setProduct] = useState<null | ProductProps>(null);
 
-  const fetchProduct = (pid?: string):Promise <ProductProps | string> => {
-    newPromise(
-        (resolve) => {
-            setTimeout(
-                () => {
-                    
-                    if (!pid) {
-                      return "상품아이디가 존재 x";
-                    }
-                },return resolve(foundProduct)
-            )
-        }
-    )
-    setIsPending(true);
-    const foundProduct = products.find((item) => item.id === pid);
+  const fetchProduct = useCallback(
+    (): Promise<ProductProps | string> =>
+      new Promise((resolve) => {
+        setTimeout(() => {
+          if (!pid) {
+            return resolve("상품 아이디가 존재하지 않습니다.");
+          }
 
-    if (!foundProduct) {
-      return "해당 상품 존재 x";
-    }
+          const foundProduct = products.find((item) => item.id === pid);
 
-    return foundProduct;
-  };
+          if (!foundProduct) {
+            return resolve("해당 상품이 더 이상 존재하지 않습니다.");
+          }
+
+          return resolve(foundProduct);
+        }, 500);
+      }),
+    [products, pid]
+  );
 
   useEffect(() => {
-    const fn = () => {
+    const fn = async () => {
       setIsPending(true);
-      const res = fetchProduct(pid);
+      const res = await fetchProduct();
+
       if (typeof res === "string") {
         setProduct(null);
-        return alert(res);
+        alert(res);
       } else {
         setProduct(res);
       }
       setIsPending(false);
     };
-    fetchProduct(pid);
 
     fn();
 
     return () => {
       fn();
     };
-  }, [pid, fetchProduct]);
+  }, [fetchProduct]);
 
   return !product || isPending ? (
-  <Loading/>
+    <Loading />
   ) : (
     <div>
       <p>{product.name}</p>
-      <p></p>
-      <p></p>
-      <p></p>
+      <p>{pricfy(product.price)}원</p>
     </div>
   );
 };

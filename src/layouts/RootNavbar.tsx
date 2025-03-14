@@ -1,5 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import { twMerge } from "tailwind-merge";
+
 interface Props {
   menuHandler: () => void;
 }
@@ -9,32 +10,27 @@ interface Menu {
   name: string;
 }
 
-const RouteNavbar = ({ menuHandler }: Props) => {
+const RootNavbar = ({ menuHandler }: Props) => {
   const menus: Menu[] = [
     { to: "/", name: "Home" },
-    { to: "/cart", name: "cart" },
-    { to: "/product", name: "product" },
-    { to: "/myAccount", name: "myAccount" },
+    { to: "/cart", name: "Cart" },
+    { to: "/product", name: "Product" },
+    { to: "/myAccount", name: "MyAccount" },
   ];
 
   const location = useLocation();
 
   return (
-    <nav
-      className={twMerge(
-        "fixed top-15, right-0  w-full bg-white z-10 transition right-0 border-gray-500 border-l-0 border-r-0 border-border theme-base md:relative md:flex md:auto md:top-0"
-      )}
-    >
+    <nav className="fixed bg-white top-15 right-0 w-full z-10 border border-border border-l-0 border-r-0 dark:bg-darkBg dark:border-darkBorder md:relative md:flex md:w-auto md:top-0">
       {menus.map(({ name, to }) => {
         const isCurrentPath = to === location.pathname;
-
         return (
           <Link
             to={to}
             key={name}
             onClick={menuHandler}
             className={twMerge(
-              "hover:shadow-none hover:bg-bg hover:text-theme dark:hover:bg-darkBorder",
+              "hover:shadow-none hover:bg-bg hover:text-theme dark:hover:bg-darkBorder rounded-none",
               isCurrentPath && "text-theme"
             )}
           >
@@ -46,4 +42,4 @@ const RouteNavbar = ({ menuHandler }: Props) => {
   );
 };
 
-export default RouteNavbar;
+export default RootNavbar;

@@ -3,7 +3,7 @@ import "firebase/compat/firestore";
 import "firebase/compat/auth";
 import "firebase/compat/storage";
 
-const firebaseConfig = {
+const config = {
   apiKey: import.meta.env.VITE_API_KEY,
   authDomain: import.meta.env.VITE_AUTH_DOMAIN,
   projectId: import.meta.env.VITE_PROJECT_ID,
@@ -13,7 +13,7 @@ const firebaseConfig = {
   measurementId: import.meta.env.VITE_MEASUREMENT_ID,
 };
 
-firebase.initializeApp(firebaseConfig);
+firebase.initializeApp(config);
 
 const firestore = firebase.firestore;
 const db = firestore();
@@ -21,16 +21,12 @@ const db = firestore();
 const fireauth = firebase.auth;
 const auth = fireauth();
 
-const fireStorage = firebase.storage;
+const firestorage = firebase.storage;
 const storage = firestorage();
 
-export {
-  firebase,
-  auth,
-  db,
-  fireStorage,
-  fireauth,
-  firebaseConfig,
-  storage,
-  firestore,
-};
+export { firebase, firestore, db, fireauth, auth, firestorage, storage };
+
+export enum FBCollection {
+  USERS = "users",
+  PRODUCTS = "products",
+}
