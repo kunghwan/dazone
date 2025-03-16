@@ -1,7 +1,7 @@
 import { useState, useRef, useCallback } from "react";
 import { AUTH } from "../contextApi/context";
 import { TextInput, TextInputRef, Form } from "../ui";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const AuthPage = () => {
   const navi = useNavigate();
@@ -58,11 +58,11 @@ const AuthPage = () => {
         <button className="btn">Submit</button>
       </Form>
 
-      <div className=" my-5 relative flex justify-center ">
+      <div className="my-5 relative flex justify-center">
         <p className="bg-white px-2.5 text-xs dark:bg-darkBg">또는 회원가입</p>
         <span className="absolute -z-1 block w-full h-[1px] bg-darkBg top-[50%] dark:bg-darkColor"></span>
       </div>
-      <button onClick={() => navi("/signup")} className="btn border">
+      <button className="btn border" onClick={() => navi("/signup")}>
         회원가입
       </button>
     </div>

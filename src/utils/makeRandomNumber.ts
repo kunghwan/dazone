@@ -1,4 +1,4 @@
-const makeRandomNumber = (length: number) => {
+const makeRandomNumber = (length: number): number => {
   const count = Array.from({ length }, () => 9);
   let max = "";
   let min = "";
@@ -10,12 +10,13 @@ const makeRandomNumber = (length: number) => {
       min = min + "0";
     }
   });
-
   const maxNumber = Number(max);
   const minNumber = Number(min);
+
   const number =
     Math.floor(Math.random() * (maxNumber - minNumber + 1)) + minNumber;
-  console.log(number);
+
+  return number;
 };
 
 export default makeRandomNumber;
