@@ -69,8 +69,64 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
     },
     [fetchUser]
   );
+
+  const signup = useCallback(
+    async (newUser: User, password: string): Promise<PromiseResult> => {
+      try {
+        setIsPending(true);
+
+        // 이메일이 이미 사용 중인지 확인
+        const userCredential = await auth.createUserWithEmailAndPassword(
+          newUser.email,
+          password
+        );
+
+        if (!userCredential.user) {
+          return { success: false, message: "회원가입에 실패했습니다." };
+        }
+
+        const storedUser: User = { ...newUser, uid: userCredential.user.uid };
+
+        await db
+          .collection(FBCollection.USERS)
+          .doc(userCredential.user.uid)
+          .set(storedUser);
+
+        setUser(storedUser);
+
+        return { success: true };
+      } catch (error: any) {
+        if (error.code === "auth/email-already-in-use") {
+          // 이메일이 이미 사용 중일 경우
+          return {
+            success: false,
+            message:
+              "이 이메일 주소는 이미 사용 중입니다. 다른 이메일을 사용해 주세요.",
+          };
+        }
+        return { success: false, message: error.message }; // 그 외 다른 오류 처리
+      } finally {
+        setIsPending(false);
+      }
+    },
+    []
+  );
+
+  const signout = useCallback(async (): Promise<PromiseResult> => {
+    auth.signOut();
+    setUser(null);
+
+    return { success: true };
+  }, []);
+
+  useEffect(() => {
+    console.log({ user });
+  }, [user]);
+
   return (
-    <AUTH.context.Provider value={{ initialized, isPending, user, signin }}>
+    <AUTH.context.Provider
+      value={{ initialized, isPending, user, signin, signup, signout }}
+    >
       {!initialized || isPending ? (
         <Loading>
           <h1 className="text-[100px] font-black text-theme">대존</h1>
