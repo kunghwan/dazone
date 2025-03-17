@@ -1,30 +1,45 @@
 import { Suspense, lazy } from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { CgSpinner } from "react-icons/cg";
-const Home = lazy(() => import("./Home"));
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Loading from "../shared/Loading";
+import { AUTH } from "../contextApi/context";
 
+const Home = lazy(() => import("./Home"));
 const Product = lazy(() => import("./Product"));
 const MyAccount = lazy(() => import("./MyAccount"));
 const Cart = lazy(() => import("./Cart"));
 const RootLayout = lazy(() => import("../layouts/RootLayout"));
+const ProductDetail = lazy(() => import("./ProductDetail"));
+const Signup = lazy(() => import("./Signup"));
+const Order = lazy(() => import("./Order"));
+const NotFound = lazy(() => import("./NotFound"));
 
 export default function AppRouter() {
+  const { user } = AUTH.use();
   return (
-    <Suspense
-      fallback={
-        <div className="fixed w-full h-screen flex flex-center flex-col gap-y-2.5">
-          <CgSpinner className="text-4xl animate-spin text-theme" />
-          <h1 className="animate-pulse">App is Loading...</h1>
-        </div>
-      }
-    >
+    <Suspense fallback={<Loading />}>
       <BrowserRouter>
         <Routes>
           <Route path="/" Component={RootLayout}>
             <Route index Component={Home} />
-            <Route path="cart" Component={Cart} />
-            <Route path="product" Component={Product} />
-            <Route path="myaccount" Component={MyAccount} />
+            <Route path="*" Component={NotFound} />
+            <Route path="myAccount" Component={MyAccount} />
+            <Route path="signup" Component={Signup} />
+            <Route path="product">
+              <Route index Component={Product} />
+              <Route path=":pid" Component={ProductDetail} />
+            </Route>
+
+            {user && (
+              <>
+                <Route path="orders">
+                  <Route index Component={Order} />
+                  <Route path=":oid" element={<>order item</>} />
+                </Route>
+                <Route path="cart">
+                  <Route index Component={Cart} />
+                </Route>
+              </>
+            )}
           </Route>
         </Routes>
       </BrowserRouter>

@@ -1,0 +1,141 @@
+import { auth, db, FBCollection } from "../../lib/firebase";
+import Loading from "../../shared/Loading";
+import { AUTH } from "../context";
+import { useState, useEffect, useCallback, PropsWithChildren } from "react";
+
+const ref = db.collection(FBCollection.USERS);
+
+const AuthProvider = ({ children }: PropsWithChildren) => {
+  const [initialized, setInitialized] = useState(false);
+  const [isPending, setIsPending] = useState(true);
+  const [user, setUser] = useState(AUTH.initialState.user);
+
+  const fetchUser = useCallback(async (uid: string) => {
+    // const snap = await ref.get();
+    // const data = snap.docs.map(
+    //   (doc) => ({ ...doc.data(), uid: doc.id } as User)
+    // ); //! 많은 유저들을 한번에 불러올 때 씀 불러올 때는 컬렉션만 잡아서 씀
+    const snap = await ref.doc(uid).get();
+    const data = snap.data() as User | null;
+
+    //! 한 명의 유저를 가져오는 법: doc에 해당 아이템의 아이디를 전달하면 됨
+
+    if (!data) {
+      alert("존재하지 않는 유저입니다.");
+      return setUser(null);
+    }
+    setUser(data);
+  }, []);
+
+  useEffect(() => {
+    const subscribe = auth.onAuthStateChanged((fbUser) => {
+      console.log(fbUser);
+      if (fbUser) {
+        console.log("fetch user data from database");
+        fetchUser(fbUser.uid);
+      } else {
+        setUser(null);
+      }
+      setTimeout(() => {
+        setInitialized(true);
+        setIsPending(false);
+      }, 1000);
+    });
+
+    subscribe;
+
+    return subscribe;
+  }, [fetchUser]);
+
+  const signin = useCallback(
+    async (email: string, password: string): Promise<PromiseResult> => {
+      try {
+        console.log("signin process started");
+        setIsPending(true);
+
+        const { user } = await auth.signInWithEmailAndPassword(email, password);
+        if (user) {
+          await fetchUser(user.uid);
+        }
+      } catch (error: any) {
+        console.log(error);
+        return { message: error.message };
+      } finally {
+        console.log("singin process done");
+        setIsPending(false);
+      }
+
+      return { success: true };
+    },
+    [fetchUser]
+  );
+
+  const signup = useCallback(
+    async (newUser: User, password: string): Promise<PromiseResult> => {
+      try {
+        setIsPending(true);
+
+        // 이메일이 이미 사용 중인지 확인
+        const userCredential = await auth.createUserWithEmailAndPassword(
+          newUser.email,
+          password
+        );
+
+        if (!userCredential.user) {
+          return { success: false, message: "회원가입에 실패했습니다." };
+        }
+
+        const storedUser: User = { ...newUser, uid: userCredential.user.uid };
+
+        await db
+          .collection(FBCollection.USERS)
+          .doc(userCredential.user.uid)
+          .set(storedUser);
+
+        setUser(storedUser);
+
+        return { success: true };
+      } catch (error: any) {
+        if (error.code === "auth/email-already-in-use") {
+          // 이메일이 이미 사용 중일 경우
+          return {
+            success: false,
+            message:
+              "이 이메일 주소는 이미 사용 중입니다. 다른 이메일을 사용해 주세요.",
+          };
+        }
+        return { success: false, message: error.message }; // 그 외 다른 오류 처리
+      } finally {
+        setIsPending(false);
+      }
+    },
+    []
+  );
+
+  const signout = useCallback(async (): Promise<PromiseResult> => {
+    auth.signOut();
+    setUser(null);
+
+    return { success: true };
+  }, []);
+
+  useEffect(() => {
+    console.log({ user });
+  }, [user]);
+
+  return (
+    <AUTH.context.Provider
+      value={{ initialized, isPending, user, signin, signup, signout }}
+    >
+      {!initialized || isPending ? (
+        <Loading>
+          <h1 className="text-[100px] font-black text-theme">대존</h1>
+        </Loading>
+      ) : (
+        children
+      )}
+    </AUTH.context.Provider>
+  );
+};
+
+export default AuthProvider;
