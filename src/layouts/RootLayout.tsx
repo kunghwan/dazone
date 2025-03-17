@@ -17,10 +17,10 @@ const RootLayout = () => {
     document.body.className === "dark"
   );
 
-  const menuHandler = () => setIsMenuActive(false);
+  const menuHandler = () => setIsMenuActive((prev) => !prev);
 
   const { user } = AUTH.use();
-  const { cart } = CART.use();
+  const { cart } = CART.store();
 
   const navi = useNavigate();
 
@@ -78,7 +78,7 @@ const RootLayout = () => {
           {user && (
             <button
               className="text-2xl w-10 bg-bg dark:bg-darkBorder md:hidden relative"
-              onClick={() => setIsDarkMode(true)}
+              onClick={() => navi("/cart")}
             >
               <IoBasketOutline />
               {cart.length > 0 && (
@@ -96,9 +96,6 @@ const RootLayout = () => {
             <IoMenu />
           </button>
           {isMenuActive && <RootNavbar menuHandler={menuHandler} />}
-          <div className="hidden md:block">
-            <RootNavbar menuHandler={menuHandler} />
-          </div>
         </div>
       </header>
       {scroll >= 100 && (

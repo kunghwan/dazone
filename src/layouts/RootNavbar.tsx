@@ -34,7 +34,7 @@ const RootNavbar = ({ menuHandler }: Props) => {
   const location = useLocation();
 
   return (
-    <nav className="fixed bg-white top-15 right-0 w-full z-10 border border-border border-l-0 border-r-0 dark:bg-darkBg dark:border-darkBorder md:relative md:flex md:w-auto md:top-0 md:border-none">
+    <nav className="fixed bg-white top-15 right-0 w-full z-10 border border-border border-l-0 border-r-0 dark:bg-darkBg dark:border-darkBorder md:relative md:flex md:w-auto md:top-0">
       {menus.map(({ name, to }) => {
         const isCurrentPath = to === location.pathname;
 
@@ -58,8 +58,7 @@ const RootNavbar = ({ menuHandler }: Props) => {
             onClick={onClick}
             className={twMerge(
               "hover:shadow-none hover:bg-bg hover:text-theme dark:hover:bg-darkBorder rounded-none",
-              isCurrentPath && "text-theme",
-              (name === "홈" || name === "상품보기") && "md:hidden"
+              isCurrentPath && "text-theme"
             )}
           >
             {name}

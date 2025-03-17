@@ -8,11 +8,9 @@ import Toss, {
 } from "@tosspayments/tosspayments-sdk";
 import { v4 } from "uuid";
 import { db, FBCollection } from "../lib/firebase";
-import { getCreatedAt } from "../utils/dayjs";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
 
 const Cart = () => {
-  const { cart, placeOrder } = CART.use();
+  const { cart, placeOrder } = CART.store();
   const [basket, setBasket] = useState(cart);
 
   const subTotal = useMemo(
@@ -26,19 +24,6 @@ const Cart = () => {
   );
 
   const { user } = AUTH.use();
-
-  const queryClient = useQueryClient();
-
-  const mutation = useNutation({
-    mutationFn: async () => {},
-    onSucess: () => {
-      queryClient.invalidateQueries({ queryKey: ["order"] });
-    },
-    onError: (error: any) => {
-      alert(error.message);
-    },
-  });
-
   const onPay = useCallback(async () => {
     try {
       if (!user) {
@@ -49,7 +34,7 @@ const Cart = () => {
 
       const orderId = v4();
 
-      const newPayment: OrderProps = {
+      const newPayment = {
         amount: {
           currency: "KRW",
           value: subTotal,
@@ -68,35 +53,19 @@ const Cart = () => {
         .collection(FBCollection.ORDERS)
         .doc(orderId);
 
-      if (import.meta.env.PROD) {
-        await toss
-          .payment({ customerKey: user.uid })
-          .requestPayment(newPayment as any);
-      }
+      await toss
+        .payment({ customerKey: user.uid })
+        .requestPayment(newPayment as any);
 
-      mutation.mutateAsync({
-        ...newPayment,
-        items: basket,
-        createdAt: genCreated(),
-      } as OrderProps);
+      await ref.set(newPayment);
 
-      await ref.set({
-        ...newPayment,
-        items: baske,
-        createdAt: getCreatedAt,
-      } as OrderProps);
-
-      queryClient.invalidateQueries({
-        queryKey: ["order"],
-      });
-
-      await placeOrder(basket);
+      placeOrder(basket);
       setBasket([]);
       alert("결제가 완료되었습니다.");
     } catch (error: any) {
       return alert(error.message);
     }
-  }, [basket, subTotal, user, placeOrder, queryClient]);
+  }, [basket, subTotal, user, placeOrder]);
 
   return (
     <div className="flex flex-col gap-y-2.5 p-5">

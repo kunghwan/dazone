@@ -4,9 +4,9 @@ import { CheckBox, Quan } from "../ui";
 import { CART } from "../contextApi";
 
 interface Props {
-  item: CartProps;
-  basket: CartProps[];
-  onSelect: (item: CartProps, isDelete?: boolean) => void;
+  item: ProductProps;
+  basket: ProductProps[];
+  onSelect: (item: ProductProps, isDelete?: boolean) => void;
 }
 
 const CartItem = ({ item, basket, onSelect }: Props) => {
@@ -35,12 +35,12 @@ const CartItem = ({ item, basket, onSelect }: Props) => {
           <p className="font-light line-clamp-4 leading-5">{desc}</p>
           <Quan
             quan={quan}
-            onChange={async (newQuan) => {
+            onChange={(newQuan) => {
               if (newQuan === 0) {
                 return;
               }
-              const newItem: CartProps = { ...item, quan: newQuan };
-              await updateAnItem(newItem);
+              const newItem = { ...item, quan: newQuan };
+              updateAnItem(newItem);
               onSelect(newItem);
             }}
           />

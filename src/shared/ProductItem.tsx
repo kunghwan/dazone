@@ -6,11 +6,10 @@ import { useCallback } from "react";
 const ProductItem = (item: ProductProps) => {
   const { id, imgs, name, price, quan, desc } = item;
 
-  const { addToCart } = CART.use();
+  const { addToCart } = CART.store();
 
-  const onAdd = useCallback(async () => {
-    console.log("add item");
-    await addToCart([item]);
+  const onAdd = useCallback(() => {
+    addToCart(item);
     alert("장바구니에 담겼습니다.");
   }, [addToCart, item]);
 
