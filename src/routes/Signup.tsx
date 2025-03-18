@@ -12,7 +12,7 @@ const Signup = () => {
   const [confirmPassword, setConfirmPassword] = useState(
     import.meta.env.DEV ? "123123" : ""
   );
-  const [name, setName] = useState(import.meta.env.DEV ? "ykh" : "");
+  const [name, setName] = useState(import.meta.env.DEV ? "Dexter Yoon" : "");
 
   const [verificationCode, setVerificationCode] = useState("");
   const [randomNumber, setRandomNumber] = useState("");
