@@ -27,6 +27,16 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
     setUser(data);
   }, []);
 
+  const updateUser = useCallback(
+    (target: keyof User, value:any) => {
+      if(!user){
+        return
+      }
+      
+      setUser((prev) => user ?({...prev,[target]:value}: null))},[]
+  )
+
+
   useEffect(() => {
     const subscribe = auth.onAuthStateChanged((fbUser) => {
       console.log(fbUser);

@@ -17,35 +17,35 @@ const Cart = () => {
   );
 
   const onPay = useCallback(async () => {
-    // try {
-    //   if (!user) {
-    //     return alert("로그인 해주세요.");
-    //   }
-    //   //Todo: .env 파일에 clientkey 추가하기
-    //   const toss = await loadTossPayments(import.meta.env.VITE_CLIENT_KEY!);
-    //   const orderId = v4();
-    //   const newPayment = {
-    //     amount: {
-    //       currency: "KRW",
-    //       value: subTotal,
-    //     },
-    //     method: "CARD",
-    //     orderId,
-    //     orderName:
-    //       basket.length > 1
-    //         ? `${basket[0].name} 등 ${basket.length}개의 상품`
-    //         : basket[0].name,
-    //   };
-    //   if (import.meta.env.PROD) {
-    //     await toss
-    //       .payment({ customerKey: user.uid })
-    //       .requestPayment(newPayment as any);
-    //   }
-    //   setBasket([]);
-    //   alert("결제가 완료되었습니다.");
-    // } catch (error: any) {
-    //   return alert(error.message);
-    // }
+    try {
+      if (!user) {
+        return alert("로그인 해주세요.");
+      }
+      //Todo: .env 파일에 clientkey 추가하기
+      const toss = await loadTossPayments(import.meta.env.VITE_CLIENT_KEY!);
+      const orderId = v4();
+      const newPayment = {
+        amount: {
+          currency: "KRW",
+          value: subTotal,
+        },
+        method: "CARD",
+        orderId,
+        orderName:
+          basket.length > 1
+            ? `${basket[0].name} 등 ${basket.length}개의 상품`
+            : basket[0].name,
+      };
+      if (import.meta.env.PROD) {
+        await toss
+          .payment({ customerKey: user.uid })
+          .requestPayment(newPayment as any);
+      }
+      setBasket([]);
+      alert("결제가 완료되었습니다.");
+    } catch (error: any) {
+      return alert(error.message);
+    }
   }, [basket, subTotal]);
 
   return (

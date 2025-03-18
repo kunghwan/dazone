@@ -10,7 +10,8 @@ const ProductItem = (item: ProductProps) => {
     // await addToCart([item]);
     console.log("done adding");
 
-    alert("장바구니에 담겼습니다.");
+    if (confirm("장바구니에 닯았습니다. 바로 결재하시겠습니까? "))
+      alert("장바구니에 담겼습니다.");
   }, [item]);
 
   return (

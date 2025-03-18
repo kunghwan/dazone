@@ -21,9 +21,12 @@ const Order = (user: User) => {
 
   return (
     <div>
-      {data.map((order) => (
-        <div key={order.orderId}>{order.orderName}</div>
-      ))}
+      <h1>주문내역</h1>
+      <ul>
+        {data.map((order) => (
+          <div key={order.orderId}>{order.orderName}</div>
+        ))}
+      </ul>
     </div>
   );
 };

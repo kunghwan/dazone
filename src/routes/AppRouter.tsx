@@ -23,7 +23,7 @@ export default function AppRouter() {
             <Route index Component={Home} />
             <Route path="*" Component={NotFound} />
 
-            <Route path="myAccount" Component={MyAccount} />
+            <Route path="myAccount" element={<MyAccount />} />
             <Route path="signup" Component={Signup} />
             <Route path="product">
               <Route index Component={Product} />
