@@ -1,18 +1,22 @@
-import { useRef, Ref, useImperativeHandle, useMemo, useEffect } from "react";
+import { useRef, Ref, useImperativeHandle, useMemo } from "react";
+import { twMerge } from "tailwind-merge";
 
 export interface TextInputProps {
   value: string | number;
-  onChangeText: PropsFunc<string>;
+  onChangeText: (value: string) => void;
   id: string;
   label?: string;
   placeholder?: string;
   type?: React.HTMLInputTypeAttribute;
-
   ref: Ref<TextInputRef>;
+  props?: React.DetailedHTMLProps<
+    React.InputHTMLAttributes<HTMLInputElement>,
+    HTMLInputElement
+  >;
 }
 
 export interface TextInputRef {
-  focus: Func;
+  focus: () => void;
   message: "code 0" | null;
 }
 
@@ -24,25 +28,27 @@ const TextInput = ({
   value,
   placeholder,
   type,
+  props,
 }: TextInputProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
 
+  // Safely handle undefined or null values for value
   const message = useMemo<"code 0" | null>(() => {
-    const copy = value.toString();
-    if (copy.length === 0) {
+    const valueStr = value != null ? value.toString() : ""; // Ensure value is not undefined or null
+    if (valueStr.length === 0) {
       return "code 0";
     }
     return null;
   }, [value]);
 
+  // Expose focus method and message to parent via ref
   useImperativeHandle(
     ref,
     () => ({
       focus: () => setTimeout(() => inputRef.current?.focus(), 100),
       message,
-      ref: inputRef,
     }),
-    [inputRef, message]
+    [message]
   );
 
   return (
@@ -53,7 +59,8 @@ const TextInput = ({
         </label>
       )}
       <input
-        className="ti-i"
+        {...props}
+        className={twMerge("ti-i", props?.className)}
         type={type ?? "text"}
         id={id}
         value={value}

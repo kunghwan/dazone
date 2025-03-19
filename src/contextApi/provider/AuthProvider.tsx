@@ -27,16 +27,6 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
     setUser(data);
   }, []);
 
-  const updateUser = useCallback(
-    (target: keyof User, value:any) => {
-      if(!user){
-        return
-      }
-      
-      setUser((prev) => user ?({...prev,[target]:value}: null))},[]
-  )
-
-
   useEffect(() => {
     const subscribe = auth.onAuthStateChanged((fbUser) => {
       console.log(fbUser);
@@ -67,6 +57,7 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
         if (user) {
           await fetchUser(user.uid);
         }
+        return { success: true };
       } catch (error: any) {
         console.log(error);
         return { message: error.message };
@@ -114,13 +105,21 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
     return { success: true };
   }, []);
 
-  useEffect(() => {
-    console.log({ user });
-  }, [user]);
+  const updateUser = useCallback((target: keyof User, value: any) => {
+    setUser((prev) => (prev ? { ...prev, [target]: value } : null));
+  }, []);
 
   return (
     <AUTH.context.Provider
-      value={{ initialized, isPending, user, signin, signup, signout }}
+      value={{
+        initialized,
+        isPending,
+        user,
+        signin,
+        signup,
+        signout,
+        updateUser,
+      }}
     >
       {!initialized || isPending ? (
         <Loading>
