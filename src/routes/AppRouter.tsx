@@ -32,6 +32,7 @@ export default function AppRouter() {
 
             {user && (
               <>
+                <Route path="myAccount" element={<MyAccount {...user} />} />
                 <Route path="orders">
                   <Route index element={<Order {...user} />} />
                   <Route path=":oid" element={<>order item</>} />

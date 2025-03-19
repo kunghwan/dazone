@@ -34,6 +34,45 @@ const Cart = (user: User) => {
       ),
     [basket]
   );
+  const { updateFn } = useOrderQuery(user?.uid as string);
+  const [isPending, startTransition] = useTransition();
+  const onPay = useCallback(() => {
+    startTransition(async () => {
+      try {
+        if (!user) {
+          return alert("로그인 해주세요.");
+        }
+        //Todo: .env 파일에 clientkey 추가하기
+        const toss = await loadTossPayments(import.meta.env.VITE_CLIENT_KEY!);
+        const orderId = v4();
+        const newPayment = {
+          amount: {
+            currency: "KRW",
+            value: subTotal,
+          },
+          method: "CARD",
+          orderId,
+          orderName:
+            basket.length > 1
+              ? `${basket[0].name} 등 ${basket.length}개의 상품`
+              : basket[0].name,
+        };
+        if (import.meta.env.PROD) {
+          await toss
+            .payment({ customerKey: user.uid })
+            .requestPayment(newPayment as any);
+        }
+        await updateFn("CREATE", {
+          amount: { currency: "KRW", value: subTotal },
+          createdAt: "",
+          items: basket,
+          method: "CARD",
+          orderId: "",
+          orderName: basket.length > 1,
+        });
+        basket.map(async (item) => {
+          await removeAnItem(item);
+        });
 
   const [isPending, startTranstion] = useTransition();
 

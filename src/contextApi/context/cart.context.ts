@@ -2,26 +2,26 @@ import { useContext, createContext } from "react";
 
 export interface Props {
   cart: CartProps[];
-  addToCart: (items: ProductProps[]) => Promise<PromiseResult>;
-  removeAnItem: (id: string) => Promise<PromiseResult>;
+
+  addToCart: (item: ProductProps) => Promise<PromiseResult>;
+  removeAnItem: (item: CartProps) => Promise<PromiseResult>;
+  updateAnItem: (item: CartProps) => Promise<PromiseResult>;
   emptyCart: () => Promise<PromiseResult>;
-  updateAnItem: (items: CartProps[]) => Promise<PromiseResult>;
-  placeOrder: (items: CartProps[]) => Promise<PromiseResult>;
 
   isPending: boolean;
   error: null | Error;
 }
 
-export const initialstate: Props = {
+export const initialState: Props = {
   cart: [],
+
   addToCart: async () => ({}),
   removeAnItem: async () => ({}),
-  emptyCart: async () => ({}),
   updateAnItem: async () => ({}),
-  placeOrder: async () => ({}),
+  emptyCart: async () => ({}),
   isPending: true,
   error: null,
 };
 
-export const context = createContext(initialstate);
+export const context = createContext(initialState);
 export const use = () => useContext(context);

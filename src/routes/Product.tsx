@@ -1,12 +1,16 @@
 import { useSearchParams } from "react-router-dom";
 import ProductItem from "../shared/ProductItem";
+<<<<<<< HEAD
 import { useQuery } from "@tanstack/react-query";
 import { db, FBCollection } from "../lib/firebase";
 import Loading from "../shared/Loading";
+=======
+>>>>>>> 5ae9d4c3c84e04c73277f39b1002d40930fd488d
 
 const Product = () => {
   const keyword = useSearchParams()[0].get("keyword");
 
+<<<<<<< HEAD
   // const { keyword } = PRODUCT.store();
   const { data, isPending, error } = useQuery({
     queryFn: async (): Promise<ProductProps[]> => {
@@ -40,6 +44,16 @@ const Product = () => {
       ))}
     </ul>
   );
+=======
+  const product = useMemo<null | ProductProps>(() => {
+    const foundItem = products.find((item) => item.id === productId);
+    if (!foundItem) {
+      return null;
+    }
+    return foundItem;
+  }, [products, productId]);
+  return !product ? null : <ProductItem {...product} />;
+>>>>>>> 5ae9d4c3c84e04c73277f39b1002d40930fd488d
 };
 
 export default Product;

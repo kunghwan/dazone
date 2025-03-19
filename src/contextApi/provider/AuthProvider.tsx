@@ -2,14 +2,41 @@ import { auth, db, FBCollection } from "../../lib/firebase";
 import Loading from "../../shared/Loading";
 import { AUTH } from "../context";
 import { useState, useEffect, useCallback, PropsWithChildren } from "react";
-
+import {
+  createUserWithEmailAndPassword, // Firebase로 이메일과 비밀번호로 사용자 생성
+  signInWithEmailAndPassword, // Firebase로 이메일과 비밀번호로 로그인
+  signOut, // Firebase에서 로그아웃
+  onAuthStateChanged, // 인증 상태 변경을 감지하는 함수
+  User, // 사용자 객체 타입 정의
+} from "firebase/auth";
+import { doc, getDoc } from "firebase/firestore"; // Firestore에서 문서를 읽는 함수
 const ref = db.collection(FBCollection.USERS);
 
 const AuthProvider = ({ children }: PropsWithChildren) => {
   const [initialized, setInitialized] = useState(false);
   const [isPending, setIsPending] = useState(true);
   const [user, setUser] = useState(AUTH.initialState.user);
+  const docRef = doc(db, "users", "L8JHdNo5LmfCm0XsBaYF");
 
+  const getDeta = async () => {
+    const docSnap = await getDoc(docRef); // 문서 참조를 통해 데이터를 읽음
+    if (docSnap.exists()) {
+      console.log(docSnap.data()); // 문서가 존재하면 데이터를 출력
+    } else {
+      console.log("No such document!"); // 문서가 존재하지 않으면 메시지 출력
+    }
+  };
+
+  useEffect(() => {
+    getDeta(); // 컴포넌트가 처음 렌더링될 때 Firestore 데이터 읽기
+
+    // 사용자의 인증 상태를 구독 (로그인 여부 체크)
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser); // 사용자의 로그인 상태 변경 시 user 상태 업데이트
+    });
+
+    return () => unsubscribe(); // 컴포넌트가 unmount 될 때 구독을 해제
+  }, []); // 빈 배열을 넣어서 한 번만 실행되도록 설정
   const fetchUser = useCallback(async (uid: string) => {
     // const snap = await ref.get();
     // const data = snap.docs.map(

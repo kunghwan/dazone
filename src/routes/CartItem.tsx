@@ -41,6 +41,7 @@ const CartItem = (item: CartProps) => {
         <div className="flex flex-col gap-y-1 flex-1 w-2">
           <p className="font-bold truncate">{name}</p>
           <p className="font-light line-clamp-4 leading-5">{desc}</p>
+<<<<<<< HEAD
           <div className="flex gap-x-2.5">
             <Quan
               quan={quan}
@@ -75,6 +76,24 @@ const CartItem = (item: CartProps) => {
               삭제
             </button>
           </div>
+=======
+          <Quan
+            quan={quan}
+            onChange={(newQuan) => {
+              if (newQuan === 0) {
+                return;
+              }
+              const newItem: CartProps = { ...item, quan: newQuan };
+              startQ(async () => {
+                const { success, message } = await updateAnItem({ ...newItem });
+                if (!success) {
+                  return alert(message);
+                }
+              });
+            }}
+            isPending={isQPending}
+          />
+>>>>>>> 5ae9d4c3c84e04c73277f39b1002d40930fd488d
         </div>
         <p>₩{pricfy(price)}</p>
       </div>
