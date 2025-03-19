@@ -11,10 +11,7 @@ import {
 import { AUTH, CART } from "../contextApi";
 import { twMerge } from "tailwind-merge";
 import { TextInput, TextInputRef } from "../ui";
-<<<<<<< HEAD
 import { logoUrl } from "../lib/dummy";
-=======
->>>>>>> 5ae9d4c3c84e04c73277f39b1002d40930fd488d
 
 const RootLayout = () => {
   const [isMenuActive, setIsMenuActive] = useState(false);
@@ -44,25 +41,11 @@ const RootLayout = () => {
   const [keyword, setKeyword] = useState("");
   const keywordRef = useRef<TextInputRef>(null);
 
-<<<<<<< HEAD
-=======
-  const { onChangeKeyword, products } = PRODUCT.store();
->>>>>>> 5ae9d4c3c84e04c73277f39b1002d40930fd488d
   const onSubmitKeyword = useCallback(() => {
     if (keyword.length === 0) {
       alert("검색어를 입력해주세요.");
       return keywordRef.current?.focus();
     }
-<<<<<<< HEAD
-
-=======
-    const foundItem = products.find((item) => item.name.includes(keyword));
-    if (!foundItem) {
-      return alert("상품이 존재하지 않습니다.");
-    }
-    onChangeKeyword(keyword);
-    navi(`/product?productId=${foundItem.id}`);
->>>>>>> 5ae9d4c3c84e04c73277f39b1002d40930fd488d
     setKeyword("");
     navi(`/product?keyword=${keyword}`);
   }, [keyword, navi]);

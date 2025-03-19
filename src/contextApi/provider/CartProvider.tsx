@@ -13,11 +13,7 @@ const CartProvider = ({ children }: PropsWithChildren) => {
     async (item: ProductProps): Promise<PromiseResult> => {
       try {
         const foundItem = data?.find((cartItem) => cartItem.id === item.id);
-<<<<<<< HEAD
         console.log("adding item");
-=======
-
->>>>>>> 5ae9d4c3c84e04c73277f39b1002d40930fd488d
         await updateFn(
           "CREATE",
           foundItem
@@ -25,15 +21,10 @@ const CartProvider = ({ children }: PropsWithChildren) => {
             : { ...item, quan: 1 }
         );
 
-<<<<<<< HEAD
         console.log("item added");
         return { success: true };
       } catch (error: any) {
         console.log(error.message);
-=======
-        return { success: true };
-      } catch (error: any) {
->>>>>>> 5ae9d4c3c84e04c73277f39b1002d40930fd488d
         return { message: error.message };
       }
     },
